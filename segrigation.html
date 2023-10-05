@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Page Form with Dynamic Input Fields</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mt-3">Multi-Page Form</h2>
+
+            <!-- Navigation Buttons -->
+            <div class="btn-group mb-3">
+                <button class="btn btn-primary nav-button" data-show="page1">Personal Info</button>
+                <button class="btn btn-primary nav-button" data-show="page2">Education</button>
+                <button class="btn btn-primary nav-button" data-show="page3">Address</button>
+                <button class="btn btn-primary nav-button" data-show="page4">Kinship</button>
+            </div>
+
+            <form id="multiPageForm">
+                <!-- Page 1: Personal Information -->
+                <div class="page" id="page1">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name">
+                        <label for="firstName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
+                        <label for="firstName">Father's Name</label>
+                        <input type="text" class="form-control" id="fatherName" placeholder="Enter Father's Name">
+                    </div>
+                    <!-- Add Personal Info Input Fields Here -->
+                    <button type="button" class="btn btn-secondary prev-page" data-prev="page1" style="display: none;">Previous</button>
+                    <button type="button" class="btn btn-primary next-page" data-next="page2">Next</button>
+                </div>
+
+                <!-- Page 2: Education -->
+                <div class="page" id="page2" style="display: none;">
+                    <div class="form-group">
+                        <label for="school">School Name</label>
+                        <input type="text" class="form-control" id="school" placeholder="Enter School Name">
+                        <label for="school">Degree</label>
+                        <input type="text" class="form-control" id="Degree" placeholder="Enter Degree name">
+                        <label for="school">Year of Passing</label>
+                        <input type="text" class="form-control" id="Year of Passing" placeholder="Enter Year of Passing">
+                    </div>
+                    <!-- Add Education Input Fields Here -->
+                    <button type="button" class="btn btn-secondary prev-page" data-prev="page1">Previous</button>
+                    <button type="button" class="btn btn-primary next-page" data-next="page3">Next</button>
+                </div>
+
+                <!-- Page 3: Address -->
+                <div class="page" id="page3" style="display: none;">
+                    <div class="form-group">
+                        <label for="street">Street Address</label>
+                        <input type="text" class="form-control" id="street" placeholder="Enter Street Address">
+                        <label for="street">Street Num</label>
+                        <input type="text" class="form-control" id="streetnum" placeholder="Enter Street Number">
+                        <label for="street">City</label>
+                        <input type="text" class="form-control" id="city" placeholder="Enter City">
+                    </div>
+                    <!-- Add Address Input Fields Here -->
+                    <button type="button" class="btn btn-secondary prev-page" data-prev="page2">Previous</button>
+                    <button type="button" class="btn btn-primary next-page" data-next="page4">Next</button>
+                </div>
+
+                <!-- Page 4: Kinship -->
+                <div class="page" id="page4" style="display: none;">
+                    <div class="form-group">
+                        <label for="kinName">Kin's Name</label>
+                        <input type="text" class="form-control" id="kinName" placeholder="Enter Kin's Name">
+                        <label for="kinName">Kin's Department</label>
+                        <input type="text" class="form-control" id="kinDepartment" placeholder="Enter Kin's Department">
+                        <label for="kinName">Kin's Session</label>
+                        <input type="text" class="form-control" id="kinSession" placeholder="Enter Kin's Session">
+                    </div>
+                    <!-- Add Kinship Input Fields Here -->
+                    <button type="button" class="btn btn-secondary prev-page" data-prev="page3">Previous</button>
+                    <button type="submit" class="btn btn-success submit-button">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and jQuery (optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to show/hide form sections
+        function showPage(pageId) {
+            $(".page").hide();
+            $("#" + pageId).show();
+        }
+
+        // Handle navigation button clicks
+        $(".nav-button").click(function () {
+            var pageIdToShow = $(this).data("show");
+            showPage(pageIdToShow);
+        });
+
+        // Handle next page button click
+        $(".next-page").click(function () {
+            var nextPageId = $(this).data("next");
+            showPage(nextPageId);
+        });
+
+        // Handle previous page button click
+        $(".prev-page").click(function () {
+            var prevPageId = $(this).data("prev");
+            showPage(prevPageId);
+        });
+
+        // Handle form submission
+        $("#multiPageForm").submit(function (e) {
+            e.preventDefault();
+            // Handle form submission logic here
+        });
+
+        // Dynamically add input fields when the corresponding button is clicked
+        $(".nav-button").click(function () {
+            var inputFields = $(this).data("input-fields");
+            if (inputFields) {
+                $("#" + inputFields).append('<div class="form-group"><input type="text" class="form-control" placeholder="Additional Input"></div>');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
